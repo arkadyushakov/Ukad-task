@@ -1,0 +1,73 @@
+﻿@model Ukad_task.Models.ViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    @using (Html.BeginForm("Index", "Home"))
+    {
+        <div class="input-group">
+            <p>Input URL</p>
+            @Html.TextBoxFor(m => m.Url)
+            <input type="submit" value="Submit" />
+        </div>
+    }
+    @using (Html.BeginForm("History", "Home"))
+    {
+        <div class="input-group">
+            @if (ViewBag.Items != null)
+            {
+                <p>View History</p>
+                @Html.DropDownList("Items", "Select URL")
+                <input type="submit" value="Submit" />
+            }
+        </div>
+    }
+
+@if (Model != null)
+{
+    <table class="table-striped">
+        <thead>
+            <tr>
+                <th class="url">Url</th>
+                <th class="chart">Speed(ms)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var page in Model.Pages)
+            {
+                <tr>
+                    <td>@page.Address</td>
+                    <td>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+                                  style="width: @Convert.ToString(Convert.ToDouble(page.MaxSpeed)/Convert.ToDouble(Model.SlowestSpeed)*100.0 + "%")">
+                                @page.MaxSpeed
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <table class="table-striped">
+        <thead>
+            <tr>
+                <th class="url">Url</th>
+                <th class="speed">Min Speed(ms)</th>
+                <th class="speed">Max Speed(ms)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var page in Model.Pages)
+            {
+                <tr>
+                    <td>@page.Address</td>
+                    <td>@page.MinSpeed</td>
+                    <td>@page.MaxSpeed</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="UkadDBModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=&quot;C:\Users\grgrg\Documents\Visual Studio 2015\Projects\Ukad-task\Ukad-task\src\UkadDB.db3&quot;" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="page">
+          <Key>
+            <PropertyRef Name="id_page" />
+          </Key>
+          <Property Name="id_page" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="url" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="website" Type="integer" />
+          <Property Name="current_speed" Type="integer" />
+          <Property Name="min_speed" Type="integer" />
+          <Property Name="max_speed" Type="integer" />
+        </EntityType>
+        <EntityType Name="website">
+          <Key>
+            <PropertyRef Name="id_website" />
+          </Key>
+          <Property Name="id_website" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="url" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <Association Name="FK_page_0_0">
+          <End Role="website" Type="Self.website" Multiplicity="0..1" />
+          <End Role="page" Type="Self.page" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="website">
+              <PropertyRef Name="id_website" />
+            </Principal>
+            <Dependent Role="page">
+              <PropertyRef Name="website" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="UkadDBModelStoreContainer">
+          <EntitySet Name="page" EntityType="Self.page" store:Type="Tables" />
+          <EntitySet Name="website" EntityType="Self.website" store:Type="Tables" />
+          <AssociationSet Name="FK_page_0_0" Association="Self.FK_page_0_0">
+            <End Role="website" EntitySet="website" />
+            <End Role="page" EntitySet="page" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="UkadDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="page">
+          <Key>
+            <PropertyRef Name="id_page" />
+          </Key>
+          <Property Name="id_page" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="url" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="website" Type="Int64" />
+          <Property Name="current_speed" Type="Int64" />
+          <Property Name="min_speed" Type="Int64" />
+          <Property Name="max_speed" Type="Int64" />
+          <NavigationProperty Name="website1" Relationship="Self.FK_page_0_0" FromRole="page" ToRole="website" />
+        </EntityType>
+        <EntityType Name="website">
+          <Key>
+            <PropertyRef Name="id_website" />
+          </Key>
+          <Property Name="id_website" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="url" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="pages" Relationship="Self.FK_page_0_0" FromRole="website" ToRole="page" />
+        </EntityType>
+        <Association Name="FK_page_0_0">
+          <End Role="website" Type="Self.website" Multiplicity="0..1" />
+          <End Role="page" Type="Self.page" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="website">
+              <PropertyRef Name="id_website" />
+            </Principal>
+            <Dependent Role="page">
+              <PropertyRef Name="website" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="UkadDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="pages" EntityType="Self.page" />
+          <EntitySet Name="websites" EntityType="Self.website" />
+          <AssociationSet Name="FK_page_0_0" Association="Self.FK_page_0_0">
+            <End Role="website" EntitySet="websites" />
+            <End Role="page" EntitySet="pages" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="UkadDBModelStoreContainer" CdmEntityContainer="UkadDBEntities">
+          <EntitySetMapping Name="pages">
+            <EntityTypeMapping TypeName="UkadDBModel.page">
+              <MappingFragment StoreEntitySet="page">
+                <ScalarProperty Name="id_page" ColumnName="id_page" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="website" ColumnName="website" />
+                <ScalarProperty Name="current_speed" ColumnName="current_speed" />
+                <ScalarProperty Name="min_speed" ColumnName="min_speed" />
+                <ScalarProperty Name="max_speed" ColumnName="max_speed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="websites">
+            <EntityTypeMapping TypeName="UkadDBModel.website">
+              <MappingFragment StoreEntitySet="website">
+                <ScalarProperty Name="id_website" ColumnName="id_website" />
+                <ScalarProperty Name="url" ColumnName="url" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

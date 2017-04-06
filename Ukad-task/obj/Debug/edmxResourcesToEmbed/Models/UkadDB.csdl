@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="UkadDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="page">
+    <Key>
+      <PropertyRef Name="id_page" />
+    </Key>
+    <Property Name="id_page" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="url" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="website" Type="Int64" />
+    <Property Name="current_speed" Type="Int64" />
+    <Property Name="min_speed" Type="Int64" />
+    <Property Name="max_speed" Type="Int64" />
+    <NavigationProperty Name="website1" Relationship="Self.FK_page_0_0" FromRole="page" ToRole="website" />
+  </EntityType>
+  <EntityType Name="website">
+    <Key>
+      <PropertyRef Name="id_website" />
+    </Key>
+    <Property Name="id_website" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="url" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="pages" Relationship="Self.FK_page_0_0" FromRole="website" ToRole="page" />
+  </EntityType>
+  <Association Name="FK_page_0_0">
+    <End Role="website" Type="Self.website" Multiplicity="0..1" />
+    <End Role="page" Type="Self.page" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="website">
+        <PropertyRef Name="id_website" />
+      </Principal>
+      <Dependent Role="page">
+        <PropertyRef Name="website" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="UkadDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="pages" EntityType="Self.page" />
+    <EntitySet Name="websites" EntityType="Self.website" />
+    <AssociationSet Name="FK_page_0_0" Association="Self.FK_page_0_0">
+      <End Role="website" EntitySet="websites" />
+      <End Role="page" EntitySet="pages" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

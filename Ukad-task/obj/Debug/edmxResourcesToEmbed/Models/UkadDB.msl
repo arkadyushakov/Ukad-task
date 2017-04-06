@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="UkadDBModelStoreContainer" CdmEntityContainer="UkadDBEntities">
+    <EntitySetMapping Name="pages">
+      <EntityTypeMapping TypeName="UkadDBModel.page">
+        <MappingFragment StoreEntitySet="page">
+          <ScalarProperty Name="id_page" ColumnName="id_page" />
+          <ScalarProperty Name="url" ColumnName="url" />
+          <ScalarProperty Name="website" ColumnName="website" />
+          <ScalarProperty Name="current_speed" ColumnName="current_speed" />
+          <ScalarProperty Name="min_speed" ColumnName="min_speed" />
+          <ScalarProperty Name="max_speed" ColumnName="max_speed" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="websites">
+      <EntityTypeMapping TypeName="UkadDBModel.website">
+        <MappingFragment StoreEntitySet="website">
+          <ScalarProperty Name="id_website" ColumnName="id_website" />
+          <ScalarProperty Name="url" ColumnName="url" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

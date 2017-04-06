@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="UkadDBModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=&quot;C:\Users\grgrg\Documents\Visual Studio 2015\Projects\Ukad-task\Ukad-task\src\UkadDB.db3&quot;" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="page">
+    <Key>
+      <PropertyRef Name="id_page" />
+    </Key>
+    <Property Name="id_page" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="url" Type="nvarchar" MaxLength="2147483647" />
+    <Property Name="website" Type="integer" />
+    <Property Name="current_speed" Type="integer" />
+    <Property Name="min_speed" Type="integer" />
+    <Property Name="max_speed" Type="integer" />
+  </EntityType>
+  <EntityType Name="website">
+    <Key>
+      <PropertyRef Name="id_website" />
+    </Key>
+    <Property Name="id_website" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="url" Type="nvarchar" MaxLength="2147483647" />
+  </EntityType>
+  <Association Name="FK_page_0_0">
+    <End Role="website" Type="Self.website" Multiplicity="0..1" />
+    <End Role="page" Type="Self.page" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="website">
+        <PropertyRef Name="id_website" />
+      </Principal>
+      <Dependent Role="page">
+        <PropertyRef Name="website" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="UkadDBModelStoreContainer">
+    <EntitySet Name="page" EntityType="Self.page" store:Type="Tables" />
+    <EntitySet Name="website" EntityType="Self.website" store:Type="Tables" />
+    <AssociationSet Name="FK_page_0_0" Association="Self.FK_page_0_0">
+      <End Role="website" EntitySet="website" />
+      <End Role="page" EntitySet="page" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
